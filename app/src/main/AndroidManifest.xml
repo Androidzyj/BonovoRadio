@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bonovo.radio"
+    >
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <original-package android:name="com.bonovo.radio" />
+
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true" />
+
+    <application
+    	android:name=".BonovoRadioApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        <activity
+            android:name="com.bonovo.radio.RadioActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.bonovo.radio.setup" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.radio.widget.RadioPlayerAppWidget" android:label="@string/RadioOnlyPlay" >
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/radio_player_widget" />
+            <intent-filter>
+            	<action android:name="com.bonovo.radio.widget.UPDATE" />
+            	<action android:name="android.bonovo.radio.APPWIDGET_ACTION" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.radio.newwidget.NewRadioPlayerWidget" android:label="@string/RadioComplex">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/radio_player_widget" />
+            <intent-filter>
+                <action android:name="com.bonovo.radio.widget.UPDATE" />
+                <action android:name="android.bonovo.radio.APPWIDGET_ACTION" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.bonovo.radio.FREQCHANGE_ACTION"/>
+                <action android:name="android.bonovo.radio.FREQCHANGE_ACTION_T"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.bonovo.radio.MediaButtonIntentReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" >
+                </action>
+                <action android:name="android.intent.action.BONOVO_RADIO_KEY" >
+                </action>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.bonovo.radio.RadioImportActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+
+        <activity
+            android:name="com.bonovo.radio.IntentActivity"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar" >
+            <intent-filter>
+                <action android:name="com.bonovo.radio.IntentActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="com.bonovo.radio.RadioService" >
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.bonovo.radio.RadioService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
